@@ -2,14 +2,13 @@
 import asyncio
 import aiohttp
 
-from .api.utilities.utilities_api import UtilitiesApi
-from .api.models.models_api import ModelsApi, BaseModels, ModelType
-from .api.images.images_api import ImagesApi, ImageOrigin, Categories
-from .api.boards.boards_api import BoardsApi
-from .api.app.app_api import AppApi
-from .api.queue.queue_api import QueueApi
-from .api.queue.schema import EnqueueBatch
-from .api.download_queue.download_queue_api import DownloadQueueApi
+from .api.utilities import UtilitiesApi
+from .api.models import ModelsApi
+from .api.images import ImagesApi
+from .api.boards import BoardsApi
+from .api.app import AppApi
+from .api.queue import QueueApi, EnqueueBatch
+from .api.download_queue import DownloadJobStatus, DownloadQueueApi
 
 
 class Invoke:
@@ -56,7 +55,7 @@ class Invoke:
                 await asyncio.sleep(delay)
 
 
-    async def wait_batch(self, batch: EnqueueBatch, delay: float = 0.1):
+    async def wait_batch(self, batch: EnqueueBatch, delay: float = 0.1) -> None:
         batch_id = batch.batch.batch_id
         while True:
             await asyncio.sleep(delay)
@@ -73,3 +72,19 @@ class Invoke:
 
             if status.completed == 1:
                 break
+
+
+    async def wait_install_models(self, delay: float = 0.1, raise_on_error: bool = False) -> None:
+        while True:
+            queue = await self.downloadQueue.list()
+            statuses = [job.status for job in queue]
+
+            if all(status == DownloadJobStatus.completed for status in statuses):
+                return
+
+            if raise_on_error:
+                errors = [f"Error: {job.error}, Path: {job.download_path}" for job in queue if job.status in {DownloadJobStatus.cancelled, DownloadJobStatus.error}]
+                if errors:
+                    raise RuntimeError("One or more jobs failed or were cancelled:\n" + "\n".join(errors))
+
+            await asyncio.sleep(delay)

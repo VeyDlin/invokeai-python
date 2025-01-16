@@ -1,5 +1,5 @@
 # Path: invoke\graph_builder\nodes\save_image.py
-from ..node import Node
+from .node import Node
 
 
 class SaveImage(Node):

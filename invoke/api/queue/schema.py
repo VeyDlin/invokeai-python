@@ -27,10 +27,6 @@ class BatchStatus(BaseModel):
     total: int
 
 
-class Clear(BaseModel):
-    deleted: int
-
-
 class FieldValue(BaseModel):
     node_path: str
     field_name: str
@@ -102,41 +98,32 @@ class SessionQueueItem(BaseModel):
     queue_id: str
     field_values: List[Any]
     session: Session
+    workflow: Any # TODO
 
 
 class QueueStatus(BaseModel):
-    active: bool
+    queue_id: str
+    item_id: int
+    batch_id: str
+    session_id: str
     pending: int
+    in_progress: int
     completed: int
-    errored: int
+    failed: int
+    canceled: int
     total: int
 
 
+class ProcessorStatus(BaseModel):
+    is_started: bool
+    is_processing: bool
+
+
+class QueueProcessorStatus(BaseModel):
+    queue: QueueStatus
+    processor: ProcessorStatus
+
+
 class ProcessorResponse(BaseModel):
-    status: str 
-    message: Optional[str]
-
-
-class CancelResponse(BaseModel):
-    cancelled: int
-    destination: str
-
-
-class CountsByDestinationResponse(BaseModel):
-    destination: str
-    count: int
-
-
-class PruneResponse(BaseModel):
-    success: bool
-    message: Optional[str]
-
-
-class CancelByBatchIdsResponse(BaseModel):
-    cancelled: int 
-    batch_ids: List[str]
-
-
-class CancelQueueItemResponse(BaseModel):
-    cancelled: bool 
-    item_id: str
+    is_started: bool
+    is_processing: bool

@@ -1,7 +1,7 @@
 # Path: invoke\graph_builder\builder.py
 from typing import List, Tuple
-from .batch_root import BatchRoot
-from .node import Node
+from .components import BatchRoot
+from .nodes.node import Node
 
 
 class Builder:

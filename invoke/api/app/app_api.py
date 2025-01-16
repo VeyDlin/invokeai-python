@@ -1,7 +1,7 @@
 # Path: invoke\api\app\app_api.py
 import aiohttp
 from .schema import *
-from ..api import Api
+from ..api import Api, ResponseType
 
 
 class AppApi(Api):
@@ -23,29 +23,27 @@ class AppApi(Api):
         return AppConfig(**json_data)
 
 
-    async def get_log_level(self) -> LogLevel:
-        json_data = await self.get_async("app/logging", 1)
-        return LogLevel(**json_data)
+    async def get_log_level(self) -> int:
+        text_data = await self.get_async("app/logging", 1, type=ResponseType.TEXT)
+        return int(text_data)
 
 
-    async def set_log_level(self, log_level: str) -> LogLevel:
+    async def set_log_level(self, log_level: str) -> int:
         data = {"log_level": log_level}
-        json_data = await self.post_async("app/logging", 1, data=data)
-        return LogLevel(**json_data)
+        text_data = await self.post_async("app/logging", 1, data=data)
+        return int(text_data)
 
 
     async def clear_invocation_cache(self) -> None:
         await self.delete_async("app/invocation_cache", 1)
 
 
-    async def enable_invocation_cache(self) -> CacheStatus:
-        json_data = await self.put_async("app/invocation_cache/enable", 1)
-        return CacheStatus(**json_data)
+    async def enable_invocation_cache(self) -> None:
+        await self.put_async("app/invocation_cache/enable", 1)
 
 
-    async def disable_invocation_cache(self) -> CacheStatus:
-        json_data = await self.put_async("app/invocation_cache/disable", 1)
-        return CacheStatus(**json_data)
+    async def disable_invocation_cache(self) -> None:
+        await self.put_async("app/invocation_cache/disable", 1)
 
 
     async def get_invocation_cache_status(self) -> CacheStatus:

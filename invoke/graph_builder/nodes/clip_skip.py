@@ -1,5 +1,5 @@
 # Path: invoke\graph_builder\nodes\clip_skip.py
-from ..node import Node
+from .node import Node
 
 
 class ClipSkip(Node):

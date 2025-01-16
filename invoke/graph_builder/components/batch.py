@@ -5,8 +5,8 @@ from uuid import uuid4
 from .graph import Graph
 from .workflow import Workflow, WorkflowNode
 from .edge import Edge, Source, Destination
-from ..node import Node
-from ...api.models.schema import Model
+from ..nodes import Node
+from ...api.models import ModelRecord
 
 
 class Batch(BaseModel):
@@ -103,7 +103,7 @@ class Batch(BaseModel):
         )
 
 
-    def update_models_hash(self, models: List[Model]) -> None:
+    def update_models_hash(self, models: List[ModelRecord]) -> None:
         paths = {
             "main_model_loader": "model",
             "sdxl_model_loader": "model",

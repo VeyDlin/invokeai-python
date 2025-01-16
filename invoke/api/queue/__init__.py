@@ -2,9 +2,7 @@
 from .queue_api import QueueApi
 from .schema import (
     CursorPaginatedResults, EnqueueBatch, BatchStatus,
-    SessionQueueItem, Clear, PruneResponse, QueueStatus,
-    CancelQueueItemResponse, CancelResponse, CancelByBatchIdsResponse,
-    CountsByDestinationResponse, ProcessorResponse
+    SessionQueueItem, ProcessorStatus, QueueStatus, QueueProcessorStatus
 )
 
 __all__ = [
@@ -13,12 +11,7 @@ __all__ = [
     "EnqueueBatch",
     "BatchStatus",
     "SessionQueueItem",
-    "Clear",
-    "PruneResponse",
+    "ProcessorStatus",
     "QueueStatus",
-    "CancelQueueItemResponse",
-    "CancelResponse",
-    "CancelByBatchIdsResponse",
-    "CountsByDestinationResponse",
-    "ProcessorResponse",
+    "QueueProcessorStatus",
 ]

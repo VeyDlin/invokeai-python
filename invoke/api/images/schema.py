@@ -44,3 +44,14 @@ class ListImageDtos(BaseModel):
     offset: int
     limit: int
     total: int
+
+
+class ImageUrls(BaseModel):
+    image_name: str
+    image_url: str
+    thumbnail_url: str
+
+
+class DownloadImagesResponse(BaseModel):
+    response: Optional[str]
+    bulk_download_item_name: Optional[str]

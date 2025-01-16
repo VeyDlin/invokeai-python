@@ -1,5 +1,5 @@
 # Path: invoke\graph_builder\nodes\noise.py
-from ..node import Node
+from .node import Node
 
 
 class Noise(Node):

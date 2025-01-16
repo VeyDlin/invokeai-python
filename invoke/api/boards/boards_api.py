@@ -1,6 +1,6 @@
 # Path: invoke\api\boards\boards_api.py
 import aiohttp
-from ..api import Api
+from ..api import Api, QueryParams
 from .schema import *
 
 
@@ -9,13 +9,16 @@ class BoardsApi(Api):
         super().__init__(client, host)
 
 
-    async def create_board(self, board_name: str, is_private: bool = False) -> BoardDTO:
-        prams = [("board_name", board_name), ("is_private", str(is_private).lower())]
-        json_data = await self.post_async("boards", 1, prams=prams)
+    async def create(self, board_name: str, is_private: bool = False) -> BoardDTO:
+        prams: QueryParams = [
+            ("board_name", board_name),
+            ("is_private", is_private),
+        ]
+        json_data = await self.post_async("boards/", 1, prams=prams)
         return BoardDTO(**json_data)
 
 
-    async def list_boards(
+    async def list(
         self,
         order_by: Optional[str] = "created_at",
         direction: Optional[str] = "ASC",
@@ -24,16 +27,16 @@ class BoardsApi(Api):
         limit: Optional[int] = 10,
         include_archived: bool = False
     ) -> OffsetPaginatedResultsBoardDTO:
-        prams = [
+        prams: QueryParams = [
             ("order_by", order_by),
             ("direction", direction),
-            ("all", str(all_boards).lower()),
-            ("offset", str(offset)),
-            ("limit", str(limit)),
-            ("include_archived", str(include_archived).lower()),
+            ("all", all_boards),
+            ("offset", offset),
+            ("limit", limit),
+            ("include_archived", include_archived),
         ]
         prams = [(key, value) for key, value in prams if value is not None]
-        json_data = await self.get_async("boards", 1, prams)
+        json_data = await self.get_async("boards/", 1, prams=prams)
         return OffsetPaginatedResultsBoardDTO(**json_data)
 
 
@@ -48,8 +51,11 @@ class BoardsApi(Api):
 
 
     async def delete_board(self, board_id: str, include_images: bool = False) -> DeleteBoardResult:
-        prams = [("include_images", str(include_images).lower())]
-        json_data = await self.delete_async(f"boards/{board_id}", 1, prams=prams)
+        data = {
+            "board_id": board_id, 
+            "include_images": include_images
+        }
+        json_data = await self.delete_async(f"boards/{board_id}", 1, data)
         return DeleteBoardResult(**json_data)
 
 
@@ -60,12 +66,12 @@ class BoardsApi(Api):
 
     async def add_image_to_board(self, image_name: str, board_id: str) -> None:
         data = {"image_name": image_name, "board_id": board_id}
-        await self.post_async("board_images", 1, data=data)
+        await self.post_async("board_images/", 1, data=data)
 
 
     async def remove_image_from_board(self, image_name: str, board_id: str) -> None:
         data = {"image_name": image_name, "board_id": board_id}
-        await self.delete_async("board_images", 1, data=data)
+        await self.delete_async("board_images/", 1, data=data)
 
 
     async def add_images_to_board(self, image_names: List[str], board_id: str) -> AddImagesToBoardResult:

@@ -1,6 +1,6 @@
 # Path: invoke\graph_builder\nodes\main_model_loader.py
 from pydantic import BaseModel
-from ..node import Node
+from .node import Node
 
 
 class MainModelLoader(Node):

@@ -1,4 +1,6 @@
 # Path: invoke\graph_builder\components\__init__.py
+from .batch import Batch
+from .batch_root import BatchRoot
 from .edge import Edge
 from .graph import Graph
 from .workflow import Workflow
@@ -12,6 +14,8 @@ from .source import Source
 from .destination import Destination
 
 __all__ = [
+    "Batch",
+    "BatchRoot",
     "Edge",
     "Graph",
     "Workflow",

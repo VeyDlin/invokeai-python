@@ -1,5 +1,5 @@
 # Path: invoke\graph_builder\nodes\latents_to_image.py
-from ..node import Node
+from .node import Node
 
 
 class LatentsToImage(Node):

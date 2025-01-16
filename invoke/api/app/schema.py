@@ -1,6 +1,6 @@
 # Path: invoke\api\app\schema.py
 from pydantic import BaseModel
-from typing import Dict, Optional, Any
+from typing import Optional, List
 
 
 class AppVersion(BaseModel):
@@ -9,22 +9,36 @@ class AppVersion(BaseModel):
 
 
 class AppDeps(BaseModel):
-    dependencies: Dict[str, str]
+    accelerate: str
+    compel: str
+    cuda: str
+    diffusers: str
+    numpy: str
+    opencv: str
+    onnx: str
+    pillow: str
+    python: str
+    torch: str
+    torchvision: str
+    transformers: str
+    xformers: str
+
+
+class UpscalingMethod(BaseModel):
+    upscaling_method: str
+    upscaling_models: List[str]
 
 
 class AppConfig(BaseModel):
-    infill_methods: Optional[Dict[str, Any]]
-    upscaling_methods: Optional[Dict[str, Any]]
-    nsfw_methods: Optional[Dict[str, Any]]
-    other_settings: Optional[Dict[str, Any]] 
-
-
-class LogLevel(BaseModel):
-    log_level: str
+    infill_methods: List[str]
+    upscaling_methods: List[UpscalingMethod]
+    nsfw_methods: List[str]
+    watermarking_methods: List[str]
 
 
 class CacheStatus(BaseModel):
+    size: int
+    hits: int
+    misses: int
     enabled: bool
-    cache_size: Optional[int]
-    cache_hits: Optional[int]
-    cache_misses: Optional[int]
+    max_size: int

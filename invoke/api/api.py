@@ -6,7 +6,7 @@ import aiohttp
 import json
 
 
-QueryParams = List[Tuple[str, Optional[str]]]
+QueryParams = List[Tuple[str, Optional[Any]]]
 
 class ResponseType(Enum):
     JSON = "json",

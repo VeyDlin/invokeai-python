@@ -1,6 +1,6 @@
 # Path: invoke\graph_builder\nodes\lora_selector.py
 from pydantic import BaseModel
-from ..node import Node
+from .node import Node
 
 
 class LoraSelector(Node):
