@@ -15,8 +15,8 @@ class DownloadJobStatus(str, Enum):
 class DownloadJob(BaseModel):
     id: int
     dest: str
-    download_path: str
-    status: DownloadJobStatus
+    download_path: Optional[str]
+    status: Optional[DownloadJobStatus]
     bytes: int
     total_bytes: int
     error_type: Optional[str]

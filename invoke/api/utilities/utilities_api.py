@@ -16,4 +16,4 @@ class UtilitiesApi(Api):
             "combinatorial": combinatorial,
         }
         json_data = await self.post_async("utilities/dynamicprompts", 1, data=data)
-        return DynamicPromptsResponse(**json_data)
+        return DynamicPromptsResponse.model_validate(json_data)

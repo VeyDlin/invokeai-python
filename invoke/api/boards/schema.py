@@ -4,11 +4,15 @@ from typing import List, Optional
 
 
 class BoardDTO(BaseModel):
-    id: str
-    name: str
-    is_private: bool
+    board_id: str
+    board_name: str
     created_at: str
-    updated_at: Optional[str] = None
+    updated_at: str
+    deleted_at: Optional[str]
+    cover_image_name: Optional[str]
+    archived: bool
+    is_private: Optional[bool]
+    image_count: int
 
 
 class BoardChanges(BaseModel):
@@ -17,19 +21,9 @@ class BoardChanges(BaseModel):
 
 
 class DeleteBoardResult(BaseModel):
-    success: bool
     board_id: str
-    images_deleted: Optional[int] = None
-
-
-class AddImagesToBoardResult(BaseModel):
-    added_images: List[str]
-    board_id: str
-
-
-class RemoveImagesFromBoardResult(BaseModel):
-    removed_images: List[str]
-    board_id: str
+    deleted_board_images: List[str]
+    deleted_images: List[str]
 
 
 class OffsetPaginatedResultsBoardDTO(BaseModel):

@@ -31,7 +31,7 @@ class ImagesApi(Api):
         board_id: Optional[str] = None,
         session_id: Optional[str] = None,
         crop_visible: bool = False
-    ) -> ImageUpload:
+    ) -> ImageDto:
         prams: QueryParams = [
             ("image_category", category),
             ("is_intermediate", is_intermediate),
@@ -42,7 +42,7 @@ class ImagesApi(Api):
         prams = [(key, value) for key, value in prams if value is not None]
 
         json_data = await self.upload_async("images/upload", 1, "file", image, prams)
-        return ImageUpload(**json_data)
+        return ImageDto.model_validate(json_data)
     
 
     async def delete(self, image_name: str) -> None:
@@ -54,7 +54,7 @@ class ImagesApi(Api):
 
     async def get_image_dto(self, image_name: str) -> ImageDto:
         json_data = await self.get_async(f"images/i/{image_name}", 1)
-        return ImageDto(**json_data)
+        return ImageDto.model_validate(json_data)
 
 
     async def get_intermediates_count(self) -> int:
@@ -89,7 +89,7 @@ class ImagesApi(Api):
 
     async def get_urls(self, image_name: str) -> ImageUrls:
         json_data = await self.get_async(f"images/i/{image_name}/urls", 1)
-        return ImageUrls(**json_data)
+        return ImageUrls.model_validate(json_data)
 
 
     async def list_image_dtos(
@@ -112,7 +112,7 @@ class ImagesApi(Api):
         prams = [(key, value) for key, value in prams if value is not None]
 
         json_data = await self.get_async("images/", 1, prams)
-        return ListImageDtos(**json_data)
+        return ListImageDtos.model_validate(json_data)
 
 
     async def delete_by_list(self, image_names: List[str]) -> List[str]:
@@ -132,7 +132,7 @@ class ImagesApi(Api):
 
     async def download_list(self, image_names: List[str], board_id: Optional[str] = None) -> DownloadImagesResponse:
         json_data = await self.post_async("images/download", 1, {"image_names": image_names, "board_id": board_id})
-        return DownloadImagesResponse(**json_data)
+        return DownloadImagesResponse.model_validate(json_data)
 
 
     async def get_download_item(self, bulk_download_item_name: str) -> bytes:

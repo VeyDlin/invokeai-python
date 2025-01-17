@@ -1,6 +1,6 @@
 # Path: invoke\api\images\__init__.py
 from .images_api import ImagesApi, ImageOrigin, Categories
-from .schema import ImageDto, ListImageDtos, ImageUpload, ImageUrls, DownloadImagesResponse
+from .schema import ImageDto, ListImageDtos, ImageUrls, DownloadImagesResponse
 
 __all__ = [
     "ImagesApi",
@@ -8,7 +8,6 @@ __all__ = [
     "Categories",
     "ImageDto",
     "ListImageDtos",
-    "ImageUpload",
     "ImageUrls",
     "DownloadImagesResponse",
 ]

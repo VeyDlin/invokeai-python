@@ -10,64 +10,23 @@ class Submodel(BaseModel):
     variant: str
 
 
-class DefaultSettings(BaseModel):
-    vae: Optional[str]
-    vae_precision: str
-    scheduler: str
-    steps: int
-    cfg_scale: float
-    cfg_rescale_multiplier: float
-    width: int
-    height: int
-    guidance: float
-
-
 class ModelRecord(BaseModel):
-    key: str
-    hash: str
-    path: str
-    name: str
-    base: str
-    description: str
     source: str
     source_type: str
-    source_api_response: Optional[str]
-    cover_image: Optional[str]
-    submodels: Optional[Dict[str, Submodel]]
-    type: str
-    trigger_phrases: List[str]
-    default_settings: DefaultSettings
-    variant: str
-    format: str
-    repo_variant: str
-
-
-class UpdateModelRecord(BaseModel):
-    path: str
     name: str
+    path: str
+    description: Optional[str]
     base: str
     type: str
-    format: str
-    config_path: str
     key: str
     hash: str
-    description: str
-    source: str
-    converted_at: int
-    variant: str
-    prediction_type: str
-    repo_variant: str
-    upcast_attention: bool
+    format: str
 
 
 class ValidationErrorDetail(BaseModel):
     loc: List[str]
     msg: str
     type: str
-
-
-class DeleteModelResponse(BaseModel):
-    detail: List[ValidationErrorDetail]
 
 
 class ScannedModel(BaseModel):
@@ -80,51 +39,11 @@ class HuggingFaceModelResponse(BaseModel):
     is_diffusers: bool
 
 
-class ModelConfigIn(BaseModel):
-    source: str
-    source_type: str
-    source_api_response: Optional[str]
-    name: str
-    path: str
-    description: str
-    base: str
-    type: str
-    key: str
-    hash: str
-    format: str
-    trigger_phrases: List[str]
-    default_settings: DefaultSettings
-    variant: str
-    prediction_type: str
-    upcast_attention: bool
-    config_path: str
-
-
-class ModelConfigOut(BaseModel):
-    key: str
-    hash: str
-    path: str
-    name: str
-    base: str
-    description: str
-    source: str
-    source_type: str
-    source_api_response: Optional[str]
-    cover_image: Optional[str]
-    submodels: Optional[Dict[str, Submodel]]
-    type: str
-    trigger_phrases: List[str]
-    default_settings: DefaultSettings
-    variant: str
-    format: str
-    repo_variant: str
-
-
 class DownloadPart(BaseModel):
     id: int
     dest: str
-    download_path: str
-    status: str
+    download_path: Optional[str]
+    status: Optional[str]
     bytes: int
     total_bytes: int
     error_type: Optional[str]
@@ -148,56 +67,21 @@ class Source(BaseModel):
     type: str
 
 
-class InstallModelResponse(BaseModel):
-    id: int
-    status: str
-    error_reason: Optional[str]
-    config_in: ModelConfigIn
-    config_out: Optional[ModelConfigOut]
-    inplace: bool
-    source: Source
-    local_path: str
-    bytes: int
-    total_bytes: int
-    source_metadata: Optional[SourceMetadata]
-    download_parts: List[DownloadPart]
-    error: Optional[str]
-    error_traceback: Optional[str]
-
-
 class ModelInstallJob(BaseModel):
     id: int
     status: str
     error_reason: Optional[str]
-    config_in: ModelConfigIn
-    config_out: Optional[ModelConfigOut]
+    config_in: ModelRecord
+    config_out: Optional[ModelRecord]
     inplace: bool
     source: Source
     local_path: str
     bytes: int
     total_bytes: int
     source_metadata: Optional[SourceMetadata]
-    download_parts: List[DownloadPart]
+    download_parts: Optional[List[DownloadPart]]
     error: Optional[str]
     error_traceback: Optional[str]
-
-
-class ConvertedModel(BaseModel):
-    path: str
-    name: str
-    base: str
-    type: str
-    format: str
-    config_path: str
-    key: str
-    hash: str
-    description: str
-    source: str
-    converted_at: int
-    variant: str
-    prediction_type: str
-    repo_variant: str
-    upcast_attention: bool
 
 
 class CachePerformanceStats(BaseModel):
@@ -216,9 +100,10 @@ class Dependency(BaseModel):
     name: str
     base: str
     type: str
-    format: str
+    format: Optional[str]
     is_installed: bool
     previous_names: List[str]
+    dependencies: Optional[List["Dependency"]]
 
 
 class StarterModel(BaseModel):
@@ -227,10 +112,10 @@ class StarterModel(BaseModel):
     name: str
     base: str
     type: str
-    format: str
+    format: Optional[str]
     is_installed: bool
     previous_names: List[str]
-    dependencies: List[Dependency]
+    dependencies: Optional[List[Dependency]]
 
 
 class StarterModelsResponse(BaseModel):

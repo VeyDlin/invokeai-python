@@ -6,14 +6,18 @@ from pydantic import BaseModel
 class Graph(BaseModel):
     id: str
     nodes: Any
-    edges: List["Edge"]
+    edges: Any
 
 
 class Batch(BaseModel):
     batch_id: str
+    origin: Optional[str]
+    destination: Optional[str]
+    data: Optional[List[List[Any]]]
     graph: Graph
+    workflow: Optional[Any]
     runs: int
-    data: List[List[Any]]
+    priority: int
 
 
 class BatchStatus(BaseModel):
@@ -38,30 +42,24 @@ class Item(BaseModel):
     status: str
     priority: int
     batch_id: str
-    session_id: str
-    error: str
+    origin: Optional[str]
+    destination: Optional[str]
+    session_id: Optional[str]
+    error_type: Optional[str]
+    error_message: Optional[str]
+    error_traceback: Optional[str]
     created_at: str
     updated_at: str
-    started_at: str
-    completed_at: str
+    started_at: Optional[str]
+    completed_at: Optional[str]
     queue_id: str
-    field_values: List[FieldValue]
+    field_values: Optional[List[FieldValue]]
 
 
 class CursorPaginatedResults(BaseModel):
     limit: int
     has_more: bool
     items: List[Item]
-
-
-class EdgePoint(BaseModel):
-    node_id: str
-    field: str
-
-
-class Edge(BaseModel):
-    source: EdgePoint
-    destination: EdgePoint
 
 
 class EnqueueBatch(BaseModel):
@@ -75,13 +73,13 @@ class EnqueueBatch(BaseModel):
 class Session(BaseModel):
     id: str
     graph: Graph
-    execution_graph: Graph
-    executed: List[str]
-    executed_history: List[str]
-    results: Any
-    errors: Any
-    prepared_source_mapping: Any
-    source_prepared_mapping: Any
+    execution_graph: Optional[Graph]
+    executed: Optional[List[str]]
+    executed_history: Optional[List[str]]
+    results: Optional[Any]
+    errors: Optional[Any]
+    prepared_source_mapping: Optional[Any]
+    source_prepared_mapping: Optional[Any]
 
 
 class SessionQueueItem(BaseModel):
@@ -89,23 +87,27 @@ class SessionQueueItem(BaseModel):
     status: str
     priority: int
     batch_id: str
+    origin: Optional[str]
+    destination: Optional[str]
     session_id: str
-    error: str
+    error_type: Optional[str]
+    error_message: Optional[str]
+    error_traceback: Optional[str]
     created_at: str
     updated_at: str
-    started_at: str
-    completed_at: str
+    started_at: Optional[str]
+    completed_at: Optional[str]
     queue_id: str
-    field_values: List[Any]
+    field_values: Optional[List[FieldValue]]
     session: Session
-    workflow: Any # TODO
+    workflow: Optional[Any]
 
 
 class QueueStatus(BaseModel):
     queue_id: str
-    item_id: int
-    batch_id: str
-    session_id: str
+    item_id: Optional[int]
+    batch_id: Optional[str]
+    session_id: Optional[str]
     pending: int
     in_progress: int
     completed: int

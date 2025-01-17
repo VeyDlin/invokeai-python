@@ -62,12 +62,12 @@ class ModelsApi(Api):
             ("base", base)
         ]
         json_data = await self.get_async("models/get_by_attrs", 2, prams)
-        return ModelRecord(**json_data)
+        return ModelRecord.model_validate(json_data)
 
 
     async def get_by_key(self, key: str) -> ModelRecord:
         json_data = await self.get_async(f"models/i/{key}", 2)
-        return ModelRecord(**json_data)
+        return ModelRecord.model_validate(json_data)
 
 
     async def update(
@@ -81,7 +81,7 @@ class ModelsApi(Api):
         config_path: Optional[str] = None,
         description: Optional[str] = None,
         variant: Optional[str] = None
-    ) -> UpdateModelRecord:
+    ) -> ModelRecord:
         params: QueryParams = [
             ("path", path),
             ("name", name),
@@ -93,7 +93,7 @@ class ModelsApi(Api):
             ("variant", variant)
         ]
         json_data = await self.path_async(f"models/i/{key}", 2, params)
-        return UpdateModelRecord(**json_data)
+        return ModelRecord.model_validate(json_data)
     
 
     async def delete(self, key: str) -> None:
@@ -113,7 +113,7 @@ class ModelsApi(Api):
             ("repo_name", repo_name)
         ]
         json_data = await self.get_async("models/hugging_face", 2, prams)
-        return HuggingFaceModelResponse(**json_data)
+        return HuggingFaceModelResponse.model_validate(json_data)
     
 
     async def get_image(self, key: str) -> Optional[bytes]:
@@ -137,14 +137,14 @@ class ModelsApi(Api):
         source: str,
         access_token: Optional[str] = None,
         inplace: bool = False
-    ) -> InstallModelResponse:
+    ) -> ModelInstallJob:
         prams: QueryParams = [
             ("source", source),
             ("access_token", access_token),
             ("inplace", str(inplace).lower())
         ]
         json_data = await self.post_async("models/install", 2, prams=prams)
-        return InstallModelResponse(**json_data)
+        return ModelInstallJob.model_validate(json_data)
 
 
     async def list_install_jobs(self) -> List[ModelInstallJob]:
@@ -165,26 +165,26 @@ class ModelsApi(Api):
 
     async def get_install_job(self, job_id: str) -> ModelInstallJob:
         json_data = await self.get_async(f"models/install/{job_id}", 2)
-        return ModelInstallJob(**json_data)
+        return ModelInstallJob.model_validate(json_data)
 
 
     async def cancel_install_job(self, job_id: str) -> None:
         await self.delete_async(f"models/install/{job_id}", 2)
 
 
-    async def convert(self, key: str) -> ConvertedModel:
+    async def convert(self, key: str) -> ModelRecord:
         json_data = await self.put_async(f"models/convert/{key}", 2)
-        return ConvertedModel(**json_data)
+        return ModelRecord.model_validate(json_data)
 
 
     async def get_starter_models(self) -> StarterModelsResponse:
         json_data = await self.get_async("models/starter_models", 2)
-        return StarterModelsResponse(**json_data)
+        return StarterModelsResponse.model_validate(json_data)
 
 
     async def cache_performance_statistics(self) -> CachePerformanceStats:
         json_data = await self.get_async("models/stats", 2)
-        return CachePerformanceStats(**json_data)
+        return CachePerformanceStats.model_validate(json_data)
     
 
     async def get_huggingface_login_status(self) -> HFTokenStatus:

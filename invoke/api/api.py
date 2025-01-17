@@ -55,6 +55,12 @@ class Api:
             return await self.from_response_async(response, type)
 
 
+    async def patch_async(self, api_path: str, version: int, data: Optional[Any] = None, prams: Optional[QueryParams] = None, type: ResponseType = ResponseType.JSON) -> Any:
+        url = self.query_string(api_path, version, prams)
+        async with self.client.patch(url, json=self.prepare_data(data)) as response:
+            return await self.from_response_async(response, type)
+
+
     def query_string(self, api_path: str, version: int, prams: Optional[QueryParams] = None) -> str:
         base_url = f"{self.host}/api/v{version}/{api_path}"
         if not prams:
@@ -65,7 +71,7 @@ class Api:
 
     def prepare_data(self, data: Optional[Any]) -> Optional[Any]:
         if data is None:
-            return None
+            return {}
         if isinstance(data, str):
             return data 
         if isinstance(data, dict):

@@ -27,12 +27,12 @@ class DownloadQueueApi(Api):
             "access_token": access_token,
         }
         json_data = await self.post_async("download_queue/i/", 1, data)
-        return DownloadJob(**json_data)
+        return DownloadJob.model_validate(json_data)
     
 
     async def get_job(self, job_id: int) -> DownloadJob:
         json_data = await self.get_async(f"download_queue/i/{job_id}", 1)
-        return DownloadJob(**json_data)
+        return DownloadJob.model_validate(json_data)
     
 
     async def cancel_job(self, job_id: int) -> None:
