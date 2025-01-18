@@ -13,3 +13,5 @@ class LoraLoader(Node):
     class Lora(BaseModel):
         model_name: str
         base_model: str
+        class Config:
+            protected_namespaces = ()

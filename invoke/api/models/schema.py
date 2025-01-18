@@ -1,6 +1,6 @@
 # Path: invoke\api\models\schema.py
 from pydantic import BaseModel
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Any
 from enum import Enum
 
 
@@ -8,6 +8,8 @@ class Submodel(BaseModel):
     path_or_prefix: str
     model_type: str
     variant: str
+    class Config:
+        protected_namespaces = ()
 
 
 class ModelRecord(BaseModel):
@@ -61,20 +63,36 @@ class SourceMetadata(BaseModel):
     type: str
 
 
-class Source(BaseModel):
-    path: str
-    inplace: bool
-    type: str
+class Config(BaseModel):
+    source: Optional[str]
+    source_type: Optional[str]
+    name: Optional[str]
+    path: Optional[str]
+    description: Optional[str]
+    base: Optional[str]
+    type: Optional[str]
+    key: Optional[str]
+    hash: Optional[str]
+    format: Optional[str]
+
+
+class ModelInstallJobStatus(str, Enum):
+    waiting = "waiting"
+    downloading = "downloading"
+    running = "running"
+    completed = "completed"
+    cancelled = "cancelled"
+    error = "error"
 
 
 class ModelInstallJob(BaseModel):
     id: int
-    status: str
+    status: ModelInstallJobStatus
     error_reason: Optional[str]
-    config_in: ModelRecord
-    config_out: Optional[ModelRecord]
+    config_in: Config
+    config_out: Optional[Config]
     inplace: bool
-    source: Source
+    source: Any
     local_path: str
     bytes: int
     total_bytes: int

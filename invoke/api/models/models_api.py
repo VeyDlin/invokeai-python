@@ -92,7 +92,7 @@ class ModelsApi(Api):
             ("description", description),
             ("variant", variant)
         ]
-        json_data = await self.path_async(f"models/i/{key}", 2, params)
+        json_data = await self.patch_async(f"models/i/{key}", 2, params)
         return ModelRecord.model_validate(json_data)
     
 
@@ -125,7 +125,7 @@ class ModelsApi(Api):
         params: QueryParams = [
             ("image", image_bytes),
         ]
-        await self.path_async(f"models/i/{key}/image", 2, params)
+        await self.patch_async(f"models/i/{key}/image", 2, params)
 
 
     async def delete_image(self, key: str) -> None:

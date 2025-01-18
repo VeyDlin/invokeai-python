@@ -12,3 +12,5 @@ class VaeLoader(Node):
     class VaeModel(BaseModel):
         model_name: str
         base_model: str
+        class Config:
+            protected_namespaces = ()

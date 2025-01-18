@@ -90,11 +90,14 @@ class Api:
             info = await response.text()
             raise Exception(f"Server status: {response.status}; Info: {info}")
 
-        if type == ResponseType.JSON:       
-            return await response.json()  
-        if type == ResponseType.TEXT:       
+        if type == ResponseType.JSON:
+            try:
+                return await response.json(content_type=None)
+            except aiohttp.ContentTypeError:
+                return {}
+        if type == ResponseType.TEXT:   
             return await response.text()   
-        if type == ResponseType.RAW:       
+        if type == ResponseType.RAW:
             return await response.content
         
 

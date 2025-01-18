@@ -1,14 +1,14 @@
 # Path: invoke\invoke.py
 import asyncio
 import aiohttp
-
+from typing import List, Optional
 from .api.utilities import UtilitiesApi
-from .api.models import ModelsApi
+from .api.models import ModelsApi, ModelInstallJobStatus
 from .api.images import ImagesApi
 from .api.boards import BoardsApi
 from .api.app import AppApi
 from .api.queue import QueueApi, EnqueueBatch
-from .api.download_queue import DownloadJobStatus, DownloadQueueApi
+from .api.download_queue import DownloadQueueApi
 
 
 class Invoke:
@@ -65,26 +65,29 @@ class Invoke:
             if status.failed == 1:
                 # queue_list = await self.invoke.queue.list(limit=100)
                 # error = queue_list.items[-1].error
-                raise Exception("Invoke batch error")
+                raise Exception("Batch error")
 
             if status.canceled == 1:
-                raise Exception("Invoke batch canceled")
+                raise Exception("Batch canceled")
 
             if status.completed == 1:
                 break
 
 
-    async def wait_install_models(self, delay: float = 0.1, raise_on_error: bool = False) -> None:
+    async def wait_install_models(self, ids: Optional[List[int]] = None, delay: float = 0.5, raise_on_error: bool = False) -> None:
         while True:
-            queue = await self.downloadQueue.list()
+            queue = await self.models.list_install_jobs()
+            if ids is not None:
+                queue = [job for job in queue if job.id in ids]
+
             statuses = [job.status for job in queue]
 
-            if all(status == DownloadJobStatus.completed for status in statuses):
-                return
-
             if raise_on_error:
-                errors = [f"Error: {job.error}, Path: {job.download_path}" for job in queue if job.status in {DownloadJobStatus.cancelled, DownloadJobStatus.error}]
+                errors = [f"Path: {job.source}" for job in queue if job.status == ModelInstallJobStatus.error]
                 if errors:
-                    raise RuntimeError("One or more jobs failed or were cancelled:\n" + "\n".join(errors))
+                    raise RuntimeError("One or more jobs failed with errors:\n" + "\n".join(errors))
 
+            if all(status in {ModelInstallJobStatus.completed, ModelInstallJobStatus.cancelled} for status in statuses):
+                return
+            
             await asyncio.sleep(delay)

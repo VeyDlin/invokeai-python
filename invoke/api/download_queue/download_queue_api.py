@@ -15,8 +15,8 @@ class DownloadQueueApi(Api):
         return [DownloadJob(**job) for job in json_data]
 
 
-    async def prune(self) -> None:
-        await self.path_async(f"download_queue/", 1)
+    async def prune_completed_jobs(self) -> None:
+        await self.patch_async(f"download_queue/", 1)
     
 
     async def download(self, source: str, dest: str, priority: Optional[int] = None, access_token: Optional[str] = None) -> DownloadJob:
