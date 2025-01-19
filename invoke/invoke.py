@@ -34,16 +34,31 @@ class Invoke:
         self.app = AppApi(self._client, host)
         self.queue = QueueApi(self._client, host)
         self.downloadQueue = DownloadQueueApi(self._client, host)
+        self._closed = False 
+
+
+    async def __aenter__(self):
+        return self
+
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        await self.close()
+
+
+    async def close(self):
+        if not self._closed:
+            await self._client.close()
+            self._closed = True
 
 
     def __del__(self):
-        if self._client:
+        if not self._closed:
             loop = asyncio.get_event_loop()
             if loop.is_running():
                 asyncio.create_task(self._client.close())
             else:
                 loop.run_until_complete(self._client.close())
-            self._client = None
+            self._closed = True
 
 
     async def wait_invoke(self, delay: float = 0.1) -> str:
