@@ -79,6 +79,7 @@ class Config(BaseModel):
 class ModelInstallJobStatus(str, Enum):
     waiting = "waiting"
     downloading = "downloading"
+    downloads_done = "downloads_done"
     running = "running"
     completed = "completed"
     cancelled = "cancelled"

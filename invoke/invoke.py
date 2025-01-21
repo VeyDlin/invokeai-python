@@ -61,13 +61,19 @@ class Invoke:
             self._closed = True
 
 
-    async def wait_invoke(self, delay: float = 0.1) -> str:
-        while True:
-            try:
-                version = await self.app.version()
-                return version.version
-            except Exception:
-                await asyncio.sleep(delay)
+    async def wait_invoke(self, delay: float = 0.1, timeout: Optional[float] = None) -> str:
+        async def wait_until_ready():
+            while True:
+                try:
+                    version = await self.app.version()
+                    return version.version
+                except Exception:
+                    await asyncio.sleep(delay)
+
+        if timeout:
+            return await asyncio.wait_for(wait_until_ready(), timeout=timeout)
+        else:
+            return await wait_until_ready()
 
 
     async def wait_batch(self, batch: EnqueueBatch, delay: float = 0.1) -> None:
