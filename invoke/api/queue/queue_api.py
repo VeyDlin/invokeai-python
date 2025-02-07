@@ -29,8 +29,6 @@ class QueueApi(Api):
             ("status", status),
             ("cursor", cursor)
         ]
-        prams = [(key, value) for key, value in prams if value is not None]
-
         json_data = await self.get_async(f"queue/{self.queue_id}/list", 1, prams)
         return CursorPaginatedResults.model_validate(json_data)
 

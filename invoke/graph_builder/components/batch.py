@@ -120,7 +120,7 @@ class Batch(BaseModel):
 
                 if matching_models:
                     model = matching_models[0]
-                    node[path]["key"] = model["key"]
-                    node[path]["hash"] = model["hash"]
+                    node[path]["key"] = model.key
+                    node[path]["hash"] = model.hash
                 else:
                     raise Exception(f"Error updating hash for model '{name}': model not found")

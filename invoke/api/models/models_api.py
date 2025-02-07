@@ -141,7 +141,7 @@ class ModelsApi(Api):
         prams: QueryParams = [
             ("source", source),
             ("access_token", access_token),
-            ("inplace", str(inplace).lower())
+            ("inplace", inplace)
         ]
         json_data = await self.post_async("models/install", 2, prams=prams)
         return ModelInstallJob.model_validate(json_data)

@@ -39,8 +39,6 @@ class ImagesApi(Api):
             ("session_id", session_id),
             ("crop_visible", crop_visible),
         ]
-        prams = [(key, value) for key, value in prams if value is not None]
-
         json_data = await self.upload_async("images/upload", 1, "file", image, prams)
         return ImageDto.model_validate(json_data)
     
@@ -78,13 +76,11 @@ class ImagesApi(Api):
     
 
     async def get_full(self, image_name: str) -> bytes:
-        response = await self.get_async(f"images/i/{image_name}/full", 1, type=ResponseType.RAW)
-        return response.content
+        return await self.get_async(f"images/i/{image_name}/full", 1, type=ResponseType.RAW)
 
 
     async def get_thumbnail(self, image_name: str) -> bytes:
-        response = await self.get_async(f"images/i/{image_name}/thumbnail", 1, type=ResponseType.RAW)
-        return response.content
+        return await self.get_async(f"images/i/{image_name}/thumbnail", 1, type=ResponseType.RAW)
 
 
     async def get_urls(self, image_name: str) -> ImageUrls:
@@ -109,8 +105,6 @@ class ImagesApi(Api):
             ("categories", categories),
             ("board_id", board_id),
         ]
-        prams = [(key, value) for key, value in prams if value is not None]
-
         json_data = await self.get_async("images/", 1, prams)
         return ListImageDtos.model_validate(json_data)
 
@@ -136,5 +130,4 @@ class ImagesApi(Api):
 
 
     async def get_download_item(self, bulk_download_item_name: str) -> bytes:
-        response = await self.get_async(f"images/download/{bulk_download_item_name}", 1, type=ResponseType.RAW)
-        return response.content
+        return await self.get_async(f"images/download/{bulk_download_item_name}", 1, type=ResponseType.RAW)

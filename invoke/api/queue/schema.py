@@ -17,8 +17,7 @@ class Batch(BaseModel):
     graph: Graph
     workflow: Optional[Any]
     runs: int
-    priority: int
-
+    
 
 class BatchStatus(BaseModel):
     queue_id: str
