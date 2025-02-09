@@ -1,4 +1,4 @@
-# Path: invoke\api\__init__.py
+# Path: api\__init__.py
 from .api import Api
 from .app import AppApi
 from .boards import BoardsApi

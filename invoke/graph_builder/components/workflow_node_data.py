@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\components\workflow_node_data.py
+# Path: graph_builder\components\workflow_node_data.py
 from typing import Dict
 from pydantic import BaseModel
 from .workflow_node_input import WorkflowNodeInput

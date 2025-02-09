@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\nodes\lora_selector.py
+# Path: graph_builder\nodes\lora_selector.py
 from pydantic import BaseModel
 from .node import Node
 

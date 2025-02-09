@@ -1,4 +1,4 @@
-# Path: invoke\__init__.py
+# Path: __init__.py
 from .api import *
 from .graph_builder import *
 from .presets import TextToImageSD1

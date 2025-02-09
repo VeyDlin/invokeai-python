@@ -1,4 +1,4 @@
-# Path: invoke\api\boards\__init__.py
+# Path: api\boards\__init__.py
 from .boards_api import BoardsApi
 from .schema import BoardDTO, BoardChanges, OffsetPaginatedResultsBoardDTO, DeleteBoardResult
 

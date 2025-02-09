@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\components\batch_root.py
+# Path: graph_builder\components\batch_root.py
 from pydantic import BaseModel
 from .batch import Batch
 

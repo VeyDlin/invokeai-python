@@ -1,4 +1,4 @@
-# Path: invoke\api\models\models_api.py
+# Path: api\models\models_api.py
 import aiohttp
 from typing import Optional, List
 from ..api import Api, QueryParams, ResponseType

@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\nodes\denoise_latents.py
+# Path: graph_builder\nodes\denoise_latents.py
 from .node import Node
 
 

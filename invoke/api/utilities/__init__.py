@@ -1,4 +1,4 @@
-# Path: invoke\api\utilities\__init__.py
+# Path: api\utilities\__init__.py
 from .utilities_api import UtilitiesApi
 from .schema import DynamicPromptsResponse
 

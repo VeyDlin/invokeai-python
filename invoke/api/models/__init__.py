@@ -1,4 +1,4 @@
-# Path: invoke\api\models\__init__.py
+# Path: api\models\__init__.py
 from .models_api import ModelsApi, BaseModels, ModelType
 from .schema import (
     Submodel,

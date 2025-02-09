@@ -1,4 +1,4 @@
-# Path: invoke\invoke.py
+# Path: invoke.py
 import asyncio
 import aiohttp
 from typing import List, Optional
@@ -24,7 +24,7 @@ class Invoke:
     downloadQueue: DownloadQueueApi
 
 
-    def __init__(self, host: str = "http://127.0.0.1:9090",):
+    def __init__(self, host: str = "http://127.0.0.1:9090"):
         self._client = aiohttp.ClientSession()
         self.host = host
         self.utilities = UtilitiesApi(self._client, host)

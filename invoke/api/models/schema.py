@@ -1,4 +1,4 @@
-# Path: invoke\api\models\schema.py
+# Path: api\models\schema.py
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from enum import Enum

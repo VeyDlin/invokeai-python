@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\components\batch.py
+# Path: graph_builder\components\batch.py
 from typing import List, Dict, Optional, Callable, Any
 from pydantic import BaseModel
 from uuid import uuid4
@@ -109,6 +109,7 @@ class Batch(BaseModel):
             "sdxl_model_loader": "model",
             "lora_selector": "lora",
             "controlnet": "control_model",
+            "vae_loader": "vae_model",
         }
 
         for node_id, node in self.graph.nodes.items():

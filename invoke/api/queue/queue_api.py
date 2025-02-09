@@ -1,4 +1,4 @@
-# Path: invoke\api\queue\queue_api.py
+# Path: api\queue\queue_api.py
 import aiohttp
 from typing import Optional, Any
 from ..api import Api

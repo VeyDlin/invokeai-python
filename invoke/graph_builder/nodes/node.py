@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\nodes\node.py
+# Path: graph_builder\nodes\node.py
 from abc import ABC
 from typing import ClassVar
 from pydantic import BaseModel

@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\components\workflow.py
+# Path: graph_builder\components\workflow.py
 from typing import List, Optional, Any
 from pydantic import BaseModel
 from .workflow_node import WorkflowNode

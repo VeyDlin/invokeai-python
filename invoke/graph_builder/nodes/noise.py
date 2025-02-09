@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\nodes\noise.py
+# Path: graph_builder\nodes\noise.py
 from .node import Node
 
 

@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\components\position.py
+# Path: graph_builder\components\position.py
 from pydantic import BaseModel
 
 

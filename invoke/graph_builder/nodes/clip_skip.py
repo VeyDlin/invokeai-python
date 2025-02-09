@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\nodes\clip_skip.py
+# Path: graph_builder\nodes\clip_skip.py
 from .node import Node
 
 

@@ -1,4 +1,4 @@
-# Path: invoke\api\app\app_api.py
+# Path: api\app\app_api.py
 import aiohttp
 from .schema import *
 from ..api import Api, ResponseType

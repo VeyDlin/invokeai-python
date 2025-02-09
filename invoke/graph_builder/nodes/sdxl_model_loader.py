@@ -1,10 +1,10 @@
-# Path: graph_builder\nodes\main_model_loader.py
+# Path: graph_builder\nodes\sdxl_model_loader.py
 from pydantic import BaseModel
 from .node import Node
 
 
-class MainModelLoader(Node):
-    type: str = "main_model_loader"
+class SDXLModelLoader(Node):
+    type: str = "sdxl_model_loader"
     is_intermediate: bool = True
     use_cache: bool = True
     model: "Model"
@@ -13,5 +13,5 @@ class MainModelLoader(Node):
         key: str = "-"
         hash: str = "-"
         name: str
-        base: str = "sd-1"
+        base: str = "sdxl"
         type: str = "main"

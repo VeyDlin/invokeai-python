@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\components\workflow_edge.py
+# Path: graph_builder\components\workflow_edge.py
 from pydantic import BaseModel
 
 

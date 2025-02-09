@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\nodes\vae_loader.py
+# Path: graph_builder\nodes\vae_loader.py
 from pydantic import BaseModel
 from .node import Node
 
@@ -10,7 +10,10 @@ class VaeLoader(Node):
     vae_model: "VaeModel"
 
     class VaeModel(BaseModel):
-        model_name: str
-        base_model: str
+        key: str = "-"
+        hash: str = "-"
+        name: str
+        base: str
+        type: str = "vae"
         class Config:
             protected_namespaces = ()

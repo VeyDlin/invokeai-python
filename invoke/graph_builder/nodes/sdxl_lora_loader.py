@@ -1,10 +1,10 @@
-# Path: graph_builder\nodes\lora_loader.py
+# Path: graph_builder\nodes\sdxl_lora_loader.py
 from pydantic import BaseModel
 from .node import Node
 
 
-class LoraLoader(Node):
-    type: str = "lora_loader"
+class SDXLLoraLoader(Node):
+    type: str = "sdxl_lora_loader"
     is_intermediate: bool = True
     use_cache: bool = True
     lora: "Lora"
@@ -14,5 +14,5 @@ class LoraLoader(Node):
         key: str = "-"
         hash: str = "-"
         name: str
-        base: str = "sd-1"
+        base: str = "sdxl"
         type: str = "lora"

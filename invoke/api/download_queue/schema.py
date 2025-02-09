@@ -1,4 +1,4 @@
-# Path: invoke\api\download_queue\schema.py
+# Path: api\download_queue\schema.py
 from enum import Enum
 from typing import Optional
 from pydantic import BaseModel

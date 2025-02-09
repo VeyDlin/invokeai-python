@@ -1,4 +1,4 @@
-# Path: invoke\api\images\__init__.py
+# Path: api\images\__init__.py
 from .images_api import ImagesApi, ImageOrigin, Categories
 from .schema import ImageDto, ListImageDtos, ImageUrls, DownloadImagesResponse
 

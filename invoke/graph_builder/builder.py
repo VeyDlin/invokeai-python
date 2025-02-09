@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\builder.py
+# Path: graph_builder\builder.py
 from typing import List, Tuple
 from .components import BatchRoot
 from .nodes.node import Node

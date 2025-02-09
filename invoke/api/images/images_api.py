@@ -1,4 +1,4 @@
-# Path: invoke\api\images\images_api.py
+# Path: api\images\images_api.py
 import aiohttp
 from typing import Optional, Any, List
 from ..api import Api, ResponseType, QueryParams

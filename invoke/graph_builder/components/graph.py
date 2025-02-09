@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\components\graph.py
+# Path: graph_builder\components\graph.py
 from typing import Dict, List, Any
 from pydantic import BaseModel
 from .edge import Edge

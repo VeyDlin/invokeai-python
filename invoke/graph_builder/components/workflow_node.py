@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\components\workflow_node.py
+# Path: graph_builder\components\workflow_node.py
 from pydantic import BaseModel
 from .workflow_node_data import WorkflowNodeData
 from .position import Position

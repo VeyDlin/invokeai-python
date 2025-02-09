@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\components\exposed_field.py
+# Path: graph_builder\components\exposed_field.py
 from pydantic import BaseModel
 
 

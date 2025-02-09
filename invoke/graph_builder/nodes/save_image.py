@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\nodes\save_image.py
+# Path: graph_builder\nodes\save_image.py
 from .node import Node
 
 

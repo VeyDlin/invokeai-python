@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\components\source.py
+# Path: graph_builder\components\source.py
 from pydantic import BaseModel
 
 

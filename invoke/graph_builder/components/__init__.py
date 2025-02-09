@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\components\__init__.py
+# Path: graph_builder\components\__init__.py
 from .batch import Batch
 from .batch_root import BatchRoot
 from .edge import Edge

@@ -1,4 +1,4 @@
-# Path: invoke\api\utilities\utilities_api.py
+# Path: api\utilities\utilities_api.py
 import aiohttp
 from ..api import Api
 from .schema import *

@@ -1,4 +1,4 @@
-# Path: invoke\api\app\schema.py
+# Path: api\app\schema.py
 from pydantic import BaseModel
 from typing import Optional, List
 

@@ -1,4 +1,4 @@
-# Path: invoke\api\boards\schema.py
+# Path: api\boards\schema.py
 from pydantic import BaseModel
 from typing import List, Optional
 

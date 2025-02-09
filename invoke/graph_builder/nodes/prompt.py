@@ -1,4 +1,4 @@
-# Path: invoke\graph_builder\nodes\prompt.py
+# Path: graph_builder\nodes\prompt.py
 from .node import Node
 
 

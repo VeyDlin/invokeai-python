@@ -1,4 +1,4 @@
-# Path: invoke\api\boards\boards_api.py
+# Path: api\boards\boards_api.py
 import aiohttp
 from ..api import Api, QueryParams
 from .schema import *
