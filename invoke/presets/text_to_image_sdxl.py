@@ -3,7 +3,7 @@ import random
 import sys
 from typing import List, Optional, Tuple
 from uuid import uuid4
-from ...invoke import Invoke
+from ..invoke import Invoke
 from ..api.queue import EnqueueBatch
 from ..graph_builder import Schedulers
 from ..graph_builder.components import BatchRoot
