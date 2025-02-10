@@ -82,17 +82,18 @@ class ModelsApi(Api):
         description: Optional[str] = None,
         variant: Optional[str] = None
     ) -> ModelRecord:
-        params: QueryParams = [
-            ("path", path),
-            ("name", name),
-            ("base", base),
-            ("type", model_type),
-            ("format", format),
-            ("config_path", config_path),
-            ("description", description),
-            ("variant", variant)
-        ]
-        json_data = await self.patch_async(f"models/i/{key}", 2, params)
+        data = {
+            "path": path,
+            "name": name,
+            "base": base,
+            "type": model_type,
+            "format": format,
+            "config_path": config_path,
+            "description": description,
+            "variant": variant,
+        }
+        data = {k: v for k, v in data.items() if v is not None}
+        json_data = await self.patch_async(f"models/i/{key}", 2, data)
         return ModelRecord.model_validate(json_data)
     
 

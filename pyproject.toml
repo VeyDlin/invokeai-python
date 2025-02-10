@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "invokeai-python"
-version = "0.6.1"
+version = "0.6.2"
 description = "InvokeAI API package"
 readme = "README.md"
 license = { text = "MIT" }
